@@ -1,0 +1,22 @@
+<h1>Membres <%= membres._id %></h1>
+<table class="tableau">
+
+				<tr>
+					
+					<th><a href=http://localhost:8081/trier/_id/<%= ordre_url %> >_id</a></th>
+					<th><a href=http://localhost:8081/trier/prenom/<%= ordre_url %> >prenom</a></th>
+					<th><a href=http://localhost:8081/trier/nom/<%= ordre_url %> >nom</a></th>
+					<th><a href=http://localhost:8081/trier/telephone/<%= ordre_url %> >telephone</a></th>
+					<th><a href=http://localhost:8081/trier/courriel/<%= ordre_url %> >courriel</a></th>
+					<th></th>
+					<th>
+					</th>
+				</tr>
+			<tr>
+				<td><%= membres._id %></td>
+				<th contenteditable><%= membres.prenom %></th>
+				<th contenteditable><%= membres.nom %></th>
+				<td contenteditable><%= membres.telephone %></td>
+				<td contenteditable><%= membres.courriel %></td>
+			</tr>
+</table>

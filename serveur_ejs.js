@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({
 app.get('/membres', function (req, res) {
    let cursor = db.collection('adresse').find().toArray(function(err, resultat){
 		 if (err) return console.log(err)
-		 console.log('util = util = ' + util.inspect(resultat));
+		 //console.log('util = util = ' + util.inspect(resultat));
 		
 		 res.render('adresses.ejs', {membres: resultat})
 	})
@@ -37,6 +37,41 @@ app.get('/', (req, res) => {
    	res.render('accueil.ejs');
 })
 
+app.get('/trier/:cle/:ordre', function (req, res) {
+
+	let cle = req.params.cle
+
+	let ordre = (req.params.ordre == 'asc' ? 1 : -1)
+
+	let cursor = db.collection('adresse').find().sort(cle, ordre).toArray(function(err, resultat){
+		if(ordre == 1) {
+			ordre = 'desc';
+		} else {
+			ordre = 'asc';
+		}
+		//ordre == 1 ? 'asc' : 'desc';
+
+		//console.log('util = ' + util.inspect(resultat));
+ 		res.render('adresses.ejs', {membres: resultat, ordre_url:ordre});
+ 	})
+})
+
+app.post('/recherche', function (req, res) {
+
+	let cle = req.body.recherche
+	console.log(cle)
+	let cursor = db.collection('adresse').find({ 
+		$or: [ 
+			{ "prenom": cle },
+			{"nom": cle},
+			{"courriel": cle},
+			{"telephone": cle}
+		]}).toArray(function(err, resultat){
+
+			
+ 		res.render('recherche.ejs', {membres: resultat});
+ 	})
+})
 
 /*Raccourcie pour ajouter*/
 app.get('/ajouter', function (req, res) {
@@ -75,7 +110,18 @@ app.get('/supprimer/:id', (req, res) => {
     db.collection('adresse').findOneAndDelete({"_id": ObjectID(req.params.id)}, (err, resultat) => {
 
     if (err) return console.log(err)
-        res.redirect('/membres')  // redirige vers la route qui affiche la collection
+        res.redirect('/membres')  
+    })
+})
+
+app.get('/profile/:id', (req, res) => {
+    let id = req.params.id
+    db.collection('adresse').findOne({"_id": ObjectID(id)}, (err, resultat) => {
+
+    if (err) return console.log(err)
+    	console.log(resultat)
+        res.render('profile.ejs', {membres: resultat});
+
     })
 })
 

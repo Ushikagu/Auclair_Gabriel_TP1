@@ -1,4 +1,8 @@
 <h1>Membres</h1>
+<form id='mod' action="/recherche" method="POST">
+	<input type="text" name="recherche">
+	<input type="submit" value="Submit">
+</form>
 <table class="tableau">
 	<% let noLigne = 0 %>
 	<% if(typeof ordre_url == 'undefined') {ordre_url = 'asc'} %>
@@ -22,7 +26,7 @@
 			
 		<% for (elm of membres) {%>
 			<tr>
-				<td><%= elm._id %></td>
+				<td><a href=http://localhost:8081/profile/<%= elm._id %> ><%= elm._id %></a></td>
 				<th contenteditable><%= elm.prenom %></th>
 				<th contenteditable><%= elm.nom %></th>
 				<td contenteditable><%= elm.telephone %></td>

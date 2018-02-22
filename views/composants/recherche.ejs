@@ -1,0 +1,31 @@
+<h1>Membres</h1>
+<table class="tableau">
+	<% let noLigne = 0 %>
+	<% if(typeof ordre_url == 'undefined') {ordre_url = 'asc'} %>
+		<% for(element of membres){ %>
+			<% if (noLigne==0){ %>
+				<tr>
+					<% noLigne++ %>
+					
+					<th><a href=http://localhost:8081/trier/_id/<%= ordre_url %> >_id</a></th>
+					<th><a href=http://localhost:8081/trier/prenom/<%= ordre_url %> >prenom</a></th>
+					<th><a href=http://localhost:8081/trier/nom/<%= ordre_url %> >nom</a></th>
+					<th><a href=http://localhost:8081/trier/telephone/<%= ordre_url %> >telephone</a></th>
+					<th><a href=http://localhost:8081/trier/courriel/<%= ordre_url %> >courriel</a></th>
+					<th></th>
+					<th>
+					</th>
+				</tr>
+			<% } %>
+		<% } %>
+			
+		<% for (elm of membres) {%>
+			<tr>
+				<td><%= elm._id %></td>
+				<th contenteditable><%= elm.prenom %></th>
+				<th contenteditable><%= elm.nom %></th>
+				<td contenteditable><%= elm.telephone %></td>
+				<td contenteditable><%= elm.courriel %></td>
+			</tr>
+		<% } %>
+</table>
